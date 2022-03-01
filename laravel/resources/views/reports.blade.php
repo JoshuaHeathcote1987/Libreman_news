@@ -135,9 +135,12 @@
                     <a href="#"><i class="fa-solid fa-envelope text-dark fa-xl mx-1"></i></a>
                     <a href="#"><i class="fa-brands fa-twitter text-dark fa-xl mx-1"></i></a>
                     <hr>
-                    <i class="fa-solid fa-pen-to-square fa-xl mx-1"></i>
-                    <i class="fa-solid fa-circle-plus fa-xl mx-1"></i>
-                    <i class="fa-solid fa-circle-minus fa-xl mx-1"></i>
+                    <i type="button" class="fa-solid fa-pen-to-square fa-xl mx-1" data-bs-toggle="modal"
+                    data-bs-target="#editArticle"></i>
+                    <i type="button" class="fa-solid fa-circle-plus fa-xl mx-1" data-bs-toggle="modal"
+                        data-bs-target="#createArticle"></i>
+                    <i type="button" class="fa-solid fa-circle-minus fa-xl mx-1" data-bs-toggle="modal"
+                    data-bs-target="#deleteArticle"></i>
                 </div>
                 <div class="card-footer bg-secondary bg-gradient text-white">
                     2 days ago
@@ -146,12 +149,12 @@
             {{-- Comments --}}
             <div class="d-grid gap-2">
                 <button class="btn btn-dark border-bottom border-white my-2" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    data-bs-target="#commentCollapse" aria-expanded="false" aria-controls="collapseExample">
                     Show / Hide Comments
                 </button>
             </div>
             </p>
-            <div class="collapse" style="margin-bottom: 4rem;" id="collapseExample">
+            <div class="collapse" style="margin-bottom: 4rem;" id="commentCollapse">
                 <div class="card card-body" style="text-align: justify;">
                     <h3>Joshua</h3>
                     <h4>Tuesday 25th February 2022</h4>
@@ -183,9 +186,12 @@
 
                     <hr>
                     <div class="text-left">
-                        <i class="fa-solid fa-pen-to-square fa-xl mx-1"></i>
-                        <i class="fa-solid fa-circle-plus fa-xl mx-1"></i>
-                        <i class="fa-solid fa-circle-minus fa-xl mx-1"></i>
+                        <i type="button" class="fa-solid fa-pen-to-square fa-xl mx-1" data-bs-toggle="modal"
+                        data-bs-target="#createComment"></i>
+                        <i type="button" class="fa-solid fa-circle-plus fa-xl mx-1" data-bs-toggle="modal"
+                        data-bs-target="#editComment"></i>
+                        <i type="button" class="fa-solid fa-circle-minus fa-xl mx-1" data-bs-toggle="modal"
+                        data-bs-target="#deleteComment"></i>
                     </div>
                 </div>
             </div>
@@ -193,7 +199,7 @@
         {{-- Column 2 --}}
         <div class="col-lg-6 col-md-6 col-sm-12 d-none d-sm-block d-sm-none d-md-block">
             <div class="row">
-                <div class="col-lg-4 col-md-6 mb-2">
+                <div class="col-xl-4 col-lg-6 col-md-6 mb-2">
                     <div class="card" style="width: 100%;">
                         <img src="https://assets.thehansindia.com/h-upload/2022/02/27/1279101-ukraine-war.jpg"
                             class="card-img-top" alt="...">
@@ -206,7 +212,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-2">
+                <div class="col-xl-4 col-lg-6 col-md-6 mb-2">
                     <div class="card" style="width: 100%;">
                         <img src="https://payuka.co.ke/wp-content/uploads/2022/02/Russia-ukraine-war.jpg"
                             class="card-img-top" alt="...">
@@ -219,7 +225,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-2">
+                <div class="col-xl-4 col-lg-6 col-md-6 mb-2">
                     <div class="card" style="width: 100%;">
                         <img src="https://i0.wp.com/sonorasonora.com/wp-content/uploads/2022/02/War-in-Ukraine-At-UN-a-Russian-delegate-apologizes.jpg?resize=1024%2C538&ssl=1"
                             class="card-img-top" alt="...">
@@ -231,6 +237,173 @@
                             2 days ago
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createArticle">
+        Launch demo modal
+    </button>
+
+    <!-- Article Modals -->
+    <div class="modal fade" id="createArticle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Article</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-floating" action="" method="POST">
+                        <div class="form-floating mb-3">
+                            <input name="head" type="text" class="form-control" id="floatingInput"
+                                placeholder="name@example.com">
+                            <label for="floatingInput">Head</label>
+                        </div>
+                        <div class="form-floating">
+                            <textarea name="body" class="form-control" placeholder="Leave a comment here"
+                                id="floatingTextarea"></textarea>
+                            <label for="floatingTextarea">Body</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editArticle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Article</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-floating" action="" method="POST">
+                        @csrf
+                        <div class="form-floating mb-3">
+                            <input name="head" type="text" class="form-control" id="floatingInput"
+                                placeholder="name@example.com">
+                            <label for="floatingInput">Head</label>
+                        </div>
+                        <div class="form-floating">
+                            <textarea name="body" class="form-control" placeholder="Leave a comment here"
+                                id="floatingTextarea"></textarea>
+                            <label for="floatingTextarea">Body</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteArticle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Article?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-floating" action="" method="POST">
+                        @csrf
+                        <p>Are you sure you want to delete?</p> 
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Comment Modals --}}
+    <div class="modal fade" id="deleteComment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Comment?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-floating" action="" method="POST">
+                        @csrf
+                        <p>Are you sure you want to delete?</p> 
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editComment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Comment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-floating" action="" method="POST">
+                        @csrf
+                        <div class="form-floating mb-3">
+                            <input name="head" type="text" class="form-control" id="floatingInput"
+                                placeholder="name@example.com">
+                            <label for="floatingInput">Head</label>
+                        </div>
+                        <div class="form-floating">
+                            <textarea name="body" class="form-control" placeholder="Leave a comment here"
+                                id="floatingTextarea"></textarea>
+                            <label for="floatingTextarea">Body</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="createComment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Comment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-floating" action="" method="POST">
+                        <div class="form-floating mb-3">
+                            <input name="head" type="text" class="form-control" id="floatingInput"
+                                placeholder="name@example.com">
+                            <label for="floatingInput">Head</label>
+                        </div>
+                        <div class="form-floating">
+                            <textarea name="body" class="form-control" placeholder="Leave a comment here"
+                                id="floatingTextarea"></textarea>
+                            <label for="floatingTextarea">Body</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
