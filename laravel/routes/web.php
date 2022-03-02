@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ThumbController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,5 +28,9 @@ Route::get('/reports', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::resource('article', ArticleController::class);
+Route::resource('comment', CommentController::class);
+Route::resource('thumb', ThumbController::class);
 
 require __DIR__.'/auth.php';

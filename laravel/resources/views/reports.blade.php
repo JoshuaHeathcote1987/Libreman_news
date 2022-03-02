@@ -62,6 +62,17 @@
                         <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                             <ul class="navbar-nav">
                                 <li class="nav-item dropdown dropdown-menu-end dropdown-menu-lg-start">
+                                    <a class="nav-link">
+                                        @if (Auth::user()->writer)
+                                            <i class="fa-solid fa-pen-fancy pr-5" style="color: green;"></i>
+                                            <i class="fa-solid fa-comment" style="color: green;"></i>
+                                        @else
+                                            <i class="fa-solid fa-pen-fancy-slash pr-5" style="color: red;"></i>
+                                            <i class="fa-solid fa-comment" style="color: green;"></i>
+                                        @endif
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdown dropdown-menu-end dropdown-menu-lg-start">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink"
                                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         {{ Auth::user()->name }}
@@ -69,8 +80,11 @@
                                     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
                                         aria-labelledby="navbarDarkDropdownMenuLink">
                                         @csrf
-                                        <li><button type="submit" class="dropdown-item btn btn-link"><i
-                                                    class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;&nbsp;&nbsp;Logout</button>
+                                        <li>
+                                            <button type="submit" class="dropdown-item btn btn-link">
+                                                <i
+                                                    class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;&nbsp;&nbsp;Logout
+                                            </button>
                                         </li>
                                     </ul>
                                 </li>
@@ -87,10 +101,10 @@
     </nav>
 
     {{-- Navbar Bottom --}}
-    <nav class="navbar fixed-bottom navbar-light border-top border-dark bg-light bg-gradient">
+    <nav class="navbar fixed-bottom navbar-dark border-top border-dark bg-dark bg-gradient">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <div class="ml-5" id="dateAndTime">Starting Now...</div>
+                <div class="mx-auto" id="dateAndTime">Starting Now...</div>
             </a>
         </div>
     </nav>
@@ -135,12 +149,19 @@
                     <a href="#"><i class="fa-solid fa-envelope text-dark fa-xl mx-1"></i></a>
                     <a href="#"><i class="fa-brands fa-twitter text-dark fa-xl mx-1"></i></a>
                     <hr>
+
                     <i type="button" class="fa-solid fa-pen-to-square fa-xl mx-1" data-bs-toggle="modal"
-                    data-bs-target="#editArticle"></i>
-                    <i type="button" class="fa-solid fa-circle-plus fa-xl mx-1" data-bs-toggle="modal"
-                        data-bs-target="#createArticle"></i>
+                        data-bs-target="#editArticle"></i>
+                    @if (isset(Auth::user()->writer))
+                        <i type="button" class="fa-solid fa-circle-plus fa-xl mx-1" data-bs-toggle="modal"
+                            data-bs-target="#createArticle" style="color: green;"></i>
+                    @else
+                        <i type="button" class="fa-solid fa-circle-plus fa-xl mx-1" data-bs-toggle="modal"
+                            data-bs-target="#permission" style="color: red;"></i>
+                    @endif
+
                     <i type="button" class="fa-solid fa-circle-minus fa-xl mx-1" data-bs-toggle="modal"
-                    data-bs-target="#deleteArticle"></i>
+                        data-bs-target="#deleteArticle"></i>
                 </div>
                 <div class="card-footer bg-secondary bg-gradient text-white">
                     2 days ago
@@ -187,11 +208,11 @@
                     <hr>
                     <div class="text-left">
                         <i type="button" class="fa-solid fa-pen-to-square fa-xl mx-1" data-bs-toggle="modal"
-                        data-bs-target="#createComment"></i>
+                            data-bs-target="#createComment"></i>
                         <i type="button" class="fa-solid fa-circle-plus fa-xl mx-1" data-bs-toggle="modal"
-                        data-bs-target="#editComment"></i>
+                            data-bs-target="#editComment"></i>
                         <i type="button" class="fa-solid fa-circle-minus fa-xl mx-1" data-bs-toggle="modal"
-                        data-bs-target="#deleteComment"></i>
+                            data-bs-target="#deleteComment"></i>
                     </div>
                 </div>
             </div>
@@ -242,14 +263,9 @@
         </div>
     </div>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createArticle">
-        Launch demo modal
-    </button>
-
     <!-- Article Modals -->
     <div class="modal fade" id="createArticle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Create Article</h5>
@@ -278,7 +294,7 @@
     </div>
 
     <div class="modal fade" id="editArticle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit Article</h5>
@@ -307,30 +323,35 @@
         </div>
     </div>
 
-    <div class="modal fade" id="deleteArticle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="deleteArticle" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Delete Article?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-floating" action="" method="POST">
-                        @csrf
-                        <p>Are you sure you want to delete?</p> 
-                    </form>
+
+                    <p>Are you sure you want to delete?</p>
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <form class="form-floating" action="{{ route('article.destroy', 1) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
     {{-- Comment Modals --}}
-    <div class="modal fade" id="deleteComment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="deleteComment" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Delete Comment?</h5>
@@ -339,7 +360,7 @@
                 <div class="modal-body">
                     <form class="form-floating" action="" method="POST">
                         @csrf
-                        <p>Are you sure you want to delete?</p> 
+                        <p>Are you sure you want to delete?</p>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -351,7 +372,7 @@
     </div>
 
     <div class="modal fade" id="editComment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit Comment</h5>
@@ -380,8 +401,9 @@
         </div>
     </div>
 
-    <div class="modal fade" id="createComment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="createComment" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Create Comment</h5>
@@ -404,6 +426,24 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- General Modals --}}
+    <div class="modal fade" id="permission" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Permission</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You do not have permission to do that!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
